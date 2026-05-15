@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Assignment 2 - Interactive Media
+    </title>
+
+ <!-- 主体框架 -->
+
+    <style>
+
+        body {
+
+            background-color: #0f172a;
+
+            color: white;
+
+            font-family: sans-serif;
+
+            margin: 0;
+
+            transition: 0.5s;
+
+        }
+
+
+        .light-mode {
+
+            background-color: #f1f5f9;
+
+            color: black;
+
+        }
+
+
+        .title {
+
+            text-align: center;
+
+            padding-top: 30px;
+
+        }
+
+
+
+        .title h1 {
+
+            font-size: 40px;
+
+            margin-bottom: 5px;
+
+        }
+
+
+
+        .title p {
+
+            color: lightgray;
+
+        }
+
+
+
+        .light-mode .title p {
+
+            color: gray;
+
+        }
+
+
+
+        .main-box {
+
+            width: 80%;
+
+            margin: auto;
+
+            margin-top: 30px;
+
+            background-color: rgba(255,255,255,0.05);
+
+            padding: 20px;
+
+            border-radius: 10px;
+
+        }
+
+
+
+        .light-mode .main-box {
+
+            background-color: rgba(0,0,0,0.05);
+
+        }
+
+
+
+        .media-select {
+
+            text-align: center;
+
+            margin-bottom: 20px;
+
+        }
+
+
+
+        .media-select button {
+
+            margin: 5px;
+
+        }
+
+
+
+        video {
+
+            width: 100%;
+
+            border-radius: 10px;
+
+        }
+
+
+
+        audio {
+
+            width: 100%;
+
+            margin-top: 20px;
+
+        }
+
+
+
+        .buttons {
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            gap: 15px;
+
+            margin-top: 20px;
+
+            flex-wrap: wrap;
+
+        }
+
+
+
+        button {
+
+            background-color: #7c3aed;
+
+            color: white;
+
+            border: none;
+
+            padding: 12px 16px;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+        }
+
+
+
+        button:hover {
+
+            background-color: #8b5cf6;
+
+            transform: scale(1.03);
+
+        }
+
+
+
+        .icon {
+
+            width: 22px;
+
+            height: 22px;
+
+            vertical-align: middle;
+
+        }
+
+
+
+        #progressBar {
+
+            width: 300px;
+
+        }
+
+
+
+        #volumeBar {
+
+            width: 120px;
+
+        }
+
+
+
+        @media screen and (max-width: 768px) {
+
+            .buttons {
+
+                flex-direction: column;
+
+            }
+
+
+
+            #progressBar {
+
+                width: 100%;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+ <!-- 正文 -->
+
+
+
+<body>
+
+    <div class="title">
+
+        <h1>Focus on Studying</h1>
+
+        <p>music player for studying and relaxing</p>
+
+    </div>
+
+
+
+    <div class="main-box">
+
+<!-- 图标 -->
+
+        <div class="media-select">
+
+            <button onclick="showVideo()">
+
+                <img class="icon"
+                src="https://img.icons8.com/ios-filled/50/ffffff/video.png"/>
+
+                Video
+
+            </button>
+
+
+
+            <button onclick="showAudio()">
+
+                <img class="icon"
+                src="https://img.icons8.com/ios-filled/50/ffffff/musical-notes.png"/>
+
+                Audio
+
+            </button>
+
+
+
+            <button onclick="toggleLight()">
+
+                <img class="icon"
+                src="https://img.icons8.com/ios-filled/50/ffffff/light-on.png"/>
+
+                Light
+
+            </button>
+
+        </div>
+
+
+
+<!-- 视频 -->
+
+        <div id="videoSection">
+
+            <video id="videoPlayer">
+
+                <source src="media/miac.mp4"
+                type="video/mp4">
+
+            </video>
+
+        </div>
+
+
+
+<!-- 音频 -->
+
+        <div id="audioSection"
+        style="display:none;">
+
+            <audio id="audioPlayer">
+
+                <source src="media/erokia_ambient-wave-56-msfxp7-78.mp3"
+                type="audio/mp3">
+
+            </audio>
+
+        </div>
+
+
+
+<!-- 控制器 -->
+
+        <div class="buttons">
+
+            <button id="playBtn">
+
+                <img class="icon"
+                src="https://img.icons8.com/ios-filled/50/ffffff/play.png"/>
+
+            </button>
+
+
+
+            <button id="pauseBtn">
+
+                <img class="icon"
+                src="https://img.icons8.com/ios-filled/50/ffffff/pause.png"/>
+
+            </button>
+
+
+
+            <button id="nextBtn">
+
+                <img class="icon"
+                src="https://img.icons8.com/ios-filled/50/ffffff/end.png"/>
+
+            </button>
+
+
+
+            <input type="range"
+            id="progressBar"
+            value="0">
+
+
+
+            <img class="icon"
+            src="https://img.icons8.com/ios-filled/50/ffffff/high-volume.png"/>
+
+
+
+            <input type="range"
+            id="volumeBar"
+            min="0"
+            max="1"
+            step="0.1"
+            value="1">
+
+        </div>
+
+    </div>
+
+
+
+<!-- 音效 ---->
+
+    <audio id="clickSound">
+
+        <source src="Sound/pop.mp3"
+        type="audio/mp3">
+
+    </audio>
+
+<script>
+
+    let video = document.getElementById("videoPlayer");
+    let audio = document.getElementById("audioPlayer");
+
+    let playBtn = document.getElementById("playBtn");
+    let pauseBtn = document.getElementById("pauseBtn");
+
+    let progressBar = document.getElementById("progressBar");
+    let volumeBar = document.getElementById("volumeBar");
+
+    let currentMedia = video;
+
+
+
+    /*
+    I changed the original media player into a
+    study music website because I wanted the
+    design to feel more calm and relaxing.
+
+    I added both video and audio options so
+    users can switch between media without
+    opening another page.
+
+    The light mode button was added because
+    some people study during daytime while
+    others study at night. This makes the
+    website feel more comfortable to use.
+
+    Icons were added to make the controls
+    easier to understand visually.
+
+    Some ideas came from Spotify, YouTube
+    study playlists and Icons8.
+    */
+
+
+
+
+
+    function showVideo() {
+
+        audio.pause();
+
+        document.getElementById("videoSection").style.display = "block";
+        document.getElementById("audioSection").style.display = "none";
+
+        currentMedia = video;
+    }
+
+
+    function showAudio() {
+
+        video.pause();
+
+        document.getElementById("videoSection").style.display = "none";
+        document.getElementById("audioSection").style.display = "block";
+
+        currentMedia = audio;
+    }
+
+
+
+    playBtn.addEventListener("click", function () {
+
+        currentMedia.play();
+
+    });
+
+
+
+    pauseBtn.addEventListener("click", function () {
+
+        currentMedia.pause();
+
+    });
+
+
+
+    video.addEventListener("timeupdate", function () {
+
+        let percent =
+        (video.currentTime / video.duration) * 100;
+
+        progressBar.value = percent;
+
+    });
+
+
+    audio.addEventListener("timeupdate", function () {
+
+        let percent =
+        (audio.currentTime / audio.duration) * 100;
+
+        progressBar.value = percent;
+
+    });
+
+
+    progressBar.addEventListener("input", function () {
+
+        let time =
+        (progressBar.value / 100) * currentMedia.duration;
+
+        currentMedia.currentTime = time;
+
+    });
+
+
+    volumeBar.addEventListener("input", function () {
+
+        currentMedia.volume = volumeBar.value;
+
+    });
+
+
+    function toggleLight() {
+
+        let clickAudio =
+        document.getElementById("clickSound");
+
+        clickAudio.currentTime = 0;
+        clickAudio.play();
+
+        document.body.classList.toggle("light-mode");
+
+    }
+
+</script>
+
+
+
+</body>
+
+</html>
